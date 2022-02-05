@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Calculator")
+@RequestMapping("/calculator")
 public class CalculatorController {
 
     @GetMapping("/calculate")
