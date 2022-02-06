@@ -19,15 +19,16 @@ public class CalculatorController {
         this.voteRatioCalculator = voteRatioCalculator;
     }
 
-    @GetMapping("/calculate")
+    @PostMapping("/calculate")
     @ResponseBody
-    public ResponseEntity<CalculatorResponse> CalculatePopularity(
-            @RequestBody CalculatorRequest requestBody
-    ) {
+    public ResponseEntity<CalculatorResponse> CalculatePopularity(@RequestBody CalculatorRequest requestBody) {
         int voteCount = requestBody.getUpvotes() + requestBody.getDownvotes();
 
         float upvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getUpvotes());
+        upvoteRate = Math.round(upvoteRate * 100f) / 100f;
+
         float downvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getDownvotes());
+        downvoteRate = Math.round(downvoteRate * 100f) / 100f;
 
         CalculatorResponse response = new CalculatorResponse(upvoteRate, downvoteRate);
 
