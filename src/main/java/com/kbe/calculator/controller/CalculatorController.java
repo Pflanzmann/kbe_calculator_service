@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/calculator")
+@RequestMapping("/api/calculator")
 public class CalculatorController {
 
     VoteRatioCalculator voteRatioCalculator;
