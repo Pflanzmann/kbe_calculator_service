@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.SysexMessage;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/calculator")
@@ -25,18 +27,14 @@ public class CalculatorController {
     public ResponseEntity<CalculatorResponse> CalculatePopularity(@RequestBody CalculatorRequest requestBody) {
         int voteCount = requestBody.getUpvotes() + requestBody.getDownvotes();
 
-        float upvoteRate = 0;
-        float downvoteRate = 0;
-
         try {
-            upvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getUpvotes());
-            downvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getDownvotes());
+            float upvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getUpvotes());
+            float downvoteRate = voteRatioCalculator.calculateVoteRatio(voteCount, requestBody.getDownvotes());
+
+            CalculatorResponse response = new CalculatorResponse(upvoteRate, downvoteRate);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-
-        CalculatorResponse response = new CalculatorResponse(upvoteRate, downvoteRate);
-
-        return ResponseEntity.ok(response);
     }
 }

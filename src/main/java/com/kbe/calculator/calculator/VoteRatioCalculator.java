@@ -8,7 +8,7 @@ public class VoteRatioCalculator implements VoteRatioCalculatorType {
 
     @Override
     public float calculateVoteRatio(int totalVotes, int selectedVotes) throws DivideWithZeroException {
-        if (totalVotes <= 0 || selectedVotes <= 0) {
+        if (totalVotes <= 0 || selectedVotes < 0) {
             throw new DivideWithZeroException();
         }
 

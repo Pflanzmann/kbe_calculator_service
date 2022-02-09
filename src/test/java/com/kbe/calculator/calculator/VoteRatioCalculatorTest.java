@@ -35,13 +35,14 @@ class VoteRatioCalculatorTest {
     }
 
     @Test
-    void calculateVoteRatio_ZeroSelected_DivideByZeroException() {
+    void calculateVoteRatio_ZeroSelected_DivideByZeroException() throws DivideWithZeroException {
         int totalVotes = 10;
         int selectedVotes = 0;
+        float expected = 0f;
 
-        Assertions.assertThrows(DivideWithZeroException.class, () -> {
-            voteRatioCalculator.calculateVoteRatio(totalVotes, selectedVotes);
-        });
+        float result = voteRatioCalculator.calculateVoteRatio(totalVotes, selectedVotes);
+
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
@@ -103,7 +104,6 @@ class VoteRatioCalculatorTest {
         float expected = 0f;
 
         float result = voteRatioCalculator.calculateVoteRatio(totalVotes, selectedVotes);
-
         Assertions.assertEquals(expected, result);
     }
 
